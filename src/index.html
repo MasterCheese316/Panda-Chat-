@@ -44,6 +44,7 @@ socket.onmessage = ev => {
 
 navigator.mediaDevices.getUserMedia({audio:true}).then(stream => {
   const recog = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  recog.start = recog.start.bind(recog);
   recog.continuous = true;
   recog.lang = 'en-US';
   recog.interimResults = false;

@@ -11,3 +11,4 @@ const wss = new WebSocketServer({ server });
 server.on('upgrade', (req, socket, head) => { wss.handleUpgrade(req, socket, head, (ws) => { wss.emit('connection', ws, req); }); });
 server.listen(8080, () => console.log('Listening on port 8080'));
 process.on('SIGTERM', () => server.close(() => process.exit(0)));
+ 

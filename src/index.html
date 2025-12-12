@@ -22,6 +22,7 @@
 <div id="input-bar">
   <input id="text-box" placeholder="Say something…" autocomplete="off">
   <button id="send">Send</button>
+  <button id=mic> </button>
 </div>
 
 <script>
@@ -51,7 +52,8 @@ navigator.mediaDevices.getUserMedia({audio:true}).then(stream => {
     const text = e.results[e.resultIndex][0].transcript.trim();
     if (text) socket.send(JSON.stringify({type:'speak', text}));
   };
-  recog.start();
+  mic = document.getElementById('mic');
+  mic.onclick = recog.start;
 }).catch(err => console.error('Mic error:', err));
 
 function appendMsg(side, text) {

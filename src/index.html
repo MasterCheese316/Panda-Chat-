@@ -49,13 +49,21 @@ navigator.mediaDevices.getUserMedia({audio:true}).then(stream => {
   recog.interimResults = false;
 
   recog.onresult = event => {
-   const transcript = event.results[event.results.length - 1][0].transcript.trim();
-    if (transcript) socket.send(JSON.stringify({type: 'speak', text: transcript}));
-  };
-  mic = document.getElementById('mic');
-  mic.onclick = () => recog.start();
-}).catch(err => console.error('Mic error:', err));
+	  let mic = document.getElementById('mic');
+	  mic.onclick = () => {
+		  const recog = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+		  recog.continuous = false;
+		  recog.interimResults = false;
+		  recog.lang = 'en-US';
+		  recog.onresult = e => {
+			  const text = e.results[0][0].transcript.trim();
+			  if (text) socket.send(text);
+			  };
+		  recog.onerror = () => recog = null;
+		  recog.start().catch(console.error);
+		  };
 
+		
 function appendMsg(side, text) {
   const p = document.createElement('p');
   p.className = `msg ${side}`;

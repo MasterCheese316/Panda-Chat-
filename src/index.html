@@ -31,7 +31,7 @@ const send = document.getElementById('send');
 
 const params = new URLSearchParams(window.location.search);
 const roomId = params.get('room') || 'default';
-const socket = new WebSocket('wss://' + window.location.host + '/ws/default');
+const socket = new WebSocket('wss://panda-chat-s7is.onrender.com/ws/default');
 
 socket.onmessage = ev => {
   const data = JSON.parse(ev.data);

@@ -29,8 +29,8 @@ const chat = document.getElementById('chat');
 const box  = document.getElementById('text-box');
 const send = document.getElementById('send');
 
-const params = new URLSearchParams(window.location.search);
-const roomId = params.get('room') || 'default';
+
+
 const socket = new WebSocket('wss://panda-chat-s7is.onrender.com/ws/default');
 
 socket.onmessage = ev => {
